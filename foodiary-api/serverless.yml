@@ -1,0 +1,23 @@
+org: devacademy
+service: foodiary-api
+
+provider:
+  name: aws
+  region: sa-east-1
+  runtime: nodejs22.x
+  memorySize: 128
+
+package:
+  individually: true
+
+build:
+  esbuild:
+    configFile: ./esbuild.config.mjs
+
+functions:
+  hello:
+    handler: src/main/functions/hello.handler
+    events:
+      - httpApi:
+          path: /hello/{id}
+          method: POST
