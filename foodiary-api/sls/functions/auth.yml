@@ -1,0 +1,49 @@
+signUp:
+  handler: src/main/functions/auth/signUp.handler
+  events:
+    - httpApi:
+        method: POST
+        path: /auth/sign-up
+
+signIn:
+  handler: src/main/functions/auth/signIn.handler
+  events:
+    - httpApi:
+        method: POST
+        path: /auth/sign-in
+
+refreshToken:
+  handler: src/main/functions/auth/refreshToken.handler
+  events:
+    - httpApi:
+        method: POST
+        path: /auth/refresh-token
+
+forgotPassword:
+  handler: src/main/functions/auth/forgotPassword.handler
+  events:
+    - httpApi:
+        method: POST
+        path: /auth/forgot-password
+
+confirmForgotPassword:
+  handler: src/main/functions/auth/confirmForgotPassword.handler
+  events:
+    - httpApi:
+        method: POST
+        path: /auth/forgot-password/confirm
+
+preSignUpTrigger:
+  handler: src/main/functions/auth/preSignUpTrigger.handler
+  events:
+    - cognitoUserPool:
+        pool: ${self:custom.cognito.PoolName}
+        trigger: PreSignUp
+        existing: true
+        forceDeploy: true
+
+# The trigger is configured manually to support event V2.
+# Go to UserPool.yml to see the configuration.
+# Do not change this function name without change in UserPool.yml.
+preTokenGenerationTrigger:
+  handler: src/main/functions/auth/preTokenGenerationTrigger.handler

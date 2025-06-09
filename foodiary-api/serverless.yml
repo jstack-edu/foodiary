@@ -6,18 +6,34 @@ provider:
   region: sa-east-1
   runtime: nodejs22.x
   memorySize: 128
+  stage: ${opt:stage, 'dev'}
+  environment: ${file(./sls/config/env.yml)}
+  iam:
+    role: ${file(./sls/config/role.yml)}
+  httpApi:
+    authorizers:
+      CognitoAuthorizer:
+        type: jwt
+        identitySource: $request.header.Authorization
+        issuerUrl: !GetAtt UserPool.ProviderURL
+        audience:
+          - !Ref UserPoolClient
 
 package:
   individually: true
+
+custom:
+  cognito:
+    PoolName: ${self:service}-${self:provider.stage}-UserPool
 
 build:
   esbuild:
     configFile: ./esbuild.config.mjs
 
 functions:
-  hello:
-    handler: src/main/functions/hello.handler
-    events:
-      - httpApi:
-          path: /hello/{id}
-          method: POST
+  - ${file(./sls/functions/auth.yml)}
+  - ${file(./sls/functions/meals.yml)}
+
+resources:
+  - ${file(./sls/resources/UserPool.yml)}
+  - ${file(./sls/resources/MainTable.yml)}
