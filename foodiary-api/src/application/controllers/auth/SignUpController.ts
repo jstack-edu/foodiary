@@ -14,12 +14,15 @@ export class SignUpController extends Controller<'public', SignUpController.Resp
   protected override async handle(
     { body }: Controller.Request<'public', SignUpBody>,
   ): Promise<Controller.Response<SignUpController.Response>> {
-    const { account } = body;
+    const { account, profile } = body;
 
     const {
       accessToken,
       refreshToken,
-    } = await this.signUpUseCase.execute(account);
+    } = await this.signUpUseCase.execute({
+      account,
+      profile,
+    });
 
     return {
       statusCode: 201,

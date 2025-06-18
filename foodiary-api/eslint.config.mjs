@@ -14,6 +14,7 @@ export default defineConfig([
       'comma-dangle': ['error', 'always-multiline'],
       'object-curly-spacing': ['error', 'always'],
       'array-bracket-spacing': ['error', 'never'],
+      'no-empty': 'off',
       // 'space-before-function-paren': ['error', 'never'],
       'arrow-spacing': ['error', { before: true, after: true }],
       'key-spacing': ['error', { beforeColon: false, afterColon: true }],

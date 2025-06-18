@@ -6,3 +6,6 @@ statements:
     Resource:
       - !GetAtt MainTable.Arn
       - !Sub '${MainTable.Arn}/index/*'
+  - Effect: Allow
+    Action: cognito-idp:AdminDeleteUser
+    Resource: !GetAtt UserPool.Arn
