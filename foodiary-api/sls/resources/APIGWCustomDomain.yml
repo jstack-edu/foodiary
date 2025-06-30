@@ -1,5 +1,5 @@
 Conditions:
-  ShouldSetupCustomDomain: !And
+  ShouldSetupAPIGWCustomDomain: !And
     - !Not
       - !Equals
         - ${env:API_DOMAIN_NAME, ''}
@@ -11,7 +11,7 @@ Conditions:
 
 Resources:
   APIGWCustomDomainCertificate:
-    Condition: ShouldSetupCustomDomain
+    Condition: ShouldSetupAPIGWCustomDomain
     Type: AWS::CertificateManager::Certificate
     Properties:
       DomainName: ${env:API_DOMAIN_NAME, ''}
@@ -22,7 +22,7 @@ Resources:
 
   APIGWCustomDomain:
     Type: AWS::ApiGatewayV2::DomainName
-    Condition: ShouldSetupCustomDomain
+    Condition: ShouldSetupAPIGWCustomDomain
     Properties:
       DomainName: ${env:API_DOMAIN_NAME, ''}
       RoutingMode: API_MAPPING_ONLY
@@ -33,7 +33,7 @@ Resources:
           CertificateArn: !Ref APIGWCustomDomainCertificate
 
   APIGWCustomDomainMapping:
-    Condition: ShouldSetupCustomDomain
+    Condition: ShouldSetupAPIGWCustomDomain
     Type: AWS::ApiGatewayV2::ApiMapping
     Properties:
       ApiId: !Ref HttpApi
@@ -41,7 +41,7 @@ Resources:
       Stage: $default
 
   APIGWCustomDomainDNSRecord:
-    Condition: ShouldSetupCustomDomain
+    Condition: ShouldSetupAPIGWCustomDomain
     Type: AWS::Route53::RecordSet
     Properties:
       HostedZoneId: ${env:ROUTE53_HOSTED_ZONE_ID, ''}
