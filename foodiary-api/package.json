@@ -29,6 +29,7 @@
     "@aws-sdk/client-cognito-identity-provider": "^3.823.0",
     "@aws-sdk/client-dynamodb": "^3.823.0",
     "@aws-sdk/client-s3": "^3.832.0",
+    "@aws-sdk/client-sqs": "^3.840.0",
     "@aws-sdk/lib-dynamodb": "^3.823.0",
     "@aws-sdk/s3-presigned-post": "^3.832.0",
     "@react-email/column": "^0.0.13",

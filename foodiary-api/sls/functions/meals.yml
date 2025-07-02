@@ -24,3 +24,21 @@ getMealById:
         path: /meals/{mealId}
         authorizer:
           name: CognitoAuthorizer
+
+onMealFileUploaded:
+  handler: src/main/functions/meals/onMealFileUploaded.handler
+  events:
+    - s3:
+        bucket: !Ref MealsBucket
+        event: s3:ObjectCreated:*
+        existing: true
+        forceDeploy: true
+
+processMeal:
+  handler: src/main/functions/meals/processMeal.handler
+  memorySize: 1024
+  timeout: 120
+  events:
+    - sqs:
+        arn: !GetAtt MealsQueue.Arn
+        batchSize: 2
