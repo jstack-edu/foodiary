@@ -18,7 +18,7 @@ Resources:
     Type: AWS::CloudFront::OriginAccessControl
     Properties:
       OriginAccessControlConfig:
-        Name: MealsCDNOAC
+        Name: ${self:service}-${self:provider.stage}-MealsCDNOAC
         Description: OAC for MealsBucket
         OriginAccessControlOriginType: s3
         SigningBehavior: always

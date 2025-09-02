@@ -3,7 +3,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 const API_URL = 'https://api.foodiary.com.br/meals';
-const TOKEN = 'eyJraWQiOiJaVjdkSGI5Y0hyQlwvbEY5QXB4YUdOTnZDRFNsTGxpVURcL1B6U29ZWk1CcVE9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxMzdjZGFhYS1lMGIxLTcwOGItZjU2Ni1lNWVmYzJlNWY4NzkiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuc2EtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3NhLWVhc3QtMV80a0FWUzU0eXgiLCJjbGllbnRfaWQiOiIyczBjZWpodmwxdnR0aGp1cTZnbm9ram8zZSIsIm9yaWdpbl9qdGkiOiJkODE5OGNjNC00NjdlLTQ2MDktYTdkOS03YzgyOTNhNTJlZDciLCJpbnRlcm5hbElkIjoiMnltbFdCb2R3Z0JLeWc2Z1RTRDEycllKRHBpIiwiZXZlbnRfaWQiOiJjMjQ3OWJiMS1kZWVjLTQ4NGUtOThjYi1lYmVmNDUxYTUxMWEiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6ImF3cy5jb2duaXRvLnNpZ25pbi51c2VyLmFkbWluIiwiYXV0aF90aW1lIjoxNzUxMzA5NzU1LCJleHAiOjE3NTEzNTI5NTQsImlhdCI6MTc1MTMwOTc1NSwianRpIjoiNzIyYTFhMmQtOTJmYS00ODc2LWJiOTQtZmY4ZmIzY2E1NzUwIiwidXNlcm5hbWUiOiIxMzdjZGFhYS1lMGIxLTcwOGItZjU2Ni1lNWVmYzJlNWY4NzkifQ.qJ0GHaw1BGp0clWeHoz3l9xcyeXKMg-JZ2WtdFOQywfF12PhXeMqSS21qtzbWjgltfNThRQS2Pw2RNA2O9aLjwnrCgdl6jBOIrAGP4pKrXCwWrBp_37HHXNWz3J05G9G2o5NGhO1CyUA-627655xiFuKuW9T6ReCfC-DaaaME5WUgVOW41cHM6nY1ydXyyZhvhfhyGmFhfXT6llrh_95CoRSof2kKPnF2iQwV60ROSu1SMRVaLuQpDhd01X5ct-V-P1q0wjIwAgArV7AbAAxZVO52UmmNhbvyBuO3dXS0a740aqcfrCxKFy74VAR32wgqINIzAB9MTtPv9hDsHM6Fw';
+const TOKEN = 'eyJraWQiOiJaVjdkSGI5Y0hyQlwvbEY5QXB4YUdOTnZDRFNsTGxpVURcL1B6U29ZWk1CcVE9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiI2MzJjMWE1YS1lMDMxLTcwNjctMDI5MC1iM2IxZjQ1MTFiM2UiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuc2EtZWFzdC0xLmFtYXpvbmF3cy5jb21cL3NhLWVhc3QtMV80a0FWUzU0eXgiLCJjbGllbnRfaWQiOiIyczBjZWpodmwxdnR0aGp1cTZnbm9ram8zZSIsIm9yaWdpbl9qdGkiOiIzMjVmYTFjNy1lMDFjLTRiYmQtOWQwZC1kNjAyNmIwOGVhNzgiLCJpbnRlcm5hbElkIjoiMzFJVUNDcEExTW40aVRXWmQycFU3dDdVY1VZIiwiZXZlbnRfaWQiOiI3Mzc3ODg5MC1mNTg3LTQzZTQtODYxZS1hMTdlYjMxZGFlNjgiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6ImF3cy5jb2duaXRvLnNpZ25pbi51c2VyLmFkbWluIiwiYXV0aF90aW1lIjoxNzU1MjEwOTUxLCJleHAiOjE3NTUyNTQxNTEsImlhdCI6MTc1NTIxMDk1MSwianRpIjoiOGJhMDJhNGMtY2E5YS00ZmI3LTg1OTMtYmFkOGVjOGVkYzA0IiwidXNlcm5hbWUiOiI2MzJjMWE1YS1lMDMxLTcwNjctMDI5MC1iM2IxZjQ1MTFiM2UifQ.guj8ucxW9qP__w5EsrpvBiMwx0UBYDcvm05BCjWY4xYmQTXN9BbpgBAdIiwP4H2sUQy4L29DYhhiSKQM8xCsyTfe3yiL3sqBWuAcP0yiJkil5AsiJiclAfThvac_QoO1HKtU-NEC5JaO7Bct1hHp3etoKIqzKQW7-bQPgkmmMjSEO_7wj5gZnbB2EQUG1HnEAltO_zMHHgs_05U15v6CEpMZfpRAp_1dZ4D4-Jj_KDRknrdqVTOCAh18sVzHwHnl4PR3Rg3emEU0DKuPhQLZ-uYG4QFoyewfomY4p3CDYK7nNKF4lZsmgBuS2m8IHxrYkOzuoTrw1UhB8L7r0AgQXg';
 
 interface IPresignResponse {
   uploadSignature: string;
@@ -14,7 +14,7 @@ interface IPresignDecoded {
   fields: Record<string, string>;
 }
 
-async function readImageFile(filePath: string): Promise<{
+async function readFile(filePath: string, type: 'audio/m4a' | 'image/jpeg'): Promise<{
   data: Buffer;
   size: number;
   type: string;
@@ -24,7 +24,7 @@ async function readImageFile(filePath: string): Promise<{
   return {
     data,
     size: data.length,
-    type: 'image/jpeg',
+    type,
   };
 }
 
@@ -86,18 +86,19 @@ async function uploadToS3(url: string, form: FormData): Promise<void> {
   console.log('🎉 Upload completed successfully');
 }
 
-async function uploadMealImage(filePath: string): Promise<void> {
+async function uploadFile(filePath: string, fileType: 'audio/m4a' | 'image/jpeg'): Promise<void> {
   try {
-    const { data, size, type } = await readImageFile(filePath);
+    const { data, size, type } = await readFile(filePath, fileType);
     const { url, fields } = await createMeal(type, size);
     const form = buildFormData(fields, data, path.basename(filePath), type);
     await uploadToS3(url, form);
   } catch (err) {
-    console.error('❌ Error during uploadMealImage:', err);
+    console.error('❌ Error during uploadFile:', err);
     throw err;
   }
 }
 
-uploadMealImage(
-  path.resolve(__dirname, 'assets', 'cover.jpg'),
+uploadFile(
+  path.resolve(__dirname, 'assets', 'refeicao.jpg'),
+  'image/jpeg',
 ).catch(() => process.exit(1));
