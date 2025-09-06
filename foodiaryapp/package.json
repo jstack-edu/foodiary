@@ -1,0 +1,32 @@
+{
+  "name": "foodiaryapp",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@expo-google-fonts/host-grotesk": "^0.4.0",
+    "expo": "~53.0.22",
+    "expo-font": "~13.3.2",
+    "expo-status-bar": "~2.2.3",
+    "react": "19.0.0",
+    "react-native": "0.79.6",
+    "react-native-safe-area-context": "5.4.0",
+    "react-native-svg": "15.11.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@eslint/js": "^9.34.0",
+    "@types/react": "~19.0.10",
+    "eslint": "^9.34.0",
+    "eslint-plugin-react": "^7.37.5",
+    "jiti": "^2.5.1",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.42.0"
+  },
+  "private": true
+}

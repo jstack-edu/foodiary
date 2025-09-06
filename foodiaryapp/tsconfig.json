@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@ui/*": ["./src/ui/*"],
+      "@app/*": ["./src/app/*"]
+    }
+  }
+}
