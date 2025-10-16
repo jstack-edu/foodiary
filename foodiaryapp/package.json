@@ -16,6 +16,7 @@
     "expo": "~53.0.22",
     "expo-font": "~13.3.2",
     "expo-status-bar": "~2.2.3",
+    "lucide-react-native": "^0.544.0",
     "react": "19.0.0",
     "react-native": "0.79.6",
     "react-native-gesture-handler": "~2.24.0",
