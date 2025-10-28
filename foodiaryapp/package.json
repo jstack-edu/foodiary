@@ -11,6 +11,7 @@
   "dependencies": {
     "@expo-google-fonts/host-grotesk": "^0.4.0",
     "@gorhom/bottom-sheet": "^5.2.6",
+    "@react-native-community/datetimepicker": "8.4.1",
     "@react-navigation/native": "^7.1.17",
     "@react-navigation/native-stack": "^7.3.26",
     "expo": "~53.0.22",
