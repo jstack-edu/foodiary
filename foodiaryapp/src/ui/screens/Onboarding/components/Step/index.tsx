@@ -25,11 +25,9 @@ export function StepHeader({ children }: { children: React.ReactNode }) {
 
 export function StepTitle({ children }: { children: string }) {
   return (
-    <View style={styles.header}>
-      <AppText size="3xl" weight="semiBold" style={styles.title}>
-        {children}
-      </AppText>
-    </View>
+    <AppText size="3xl" weight="semiBold" style={styles.title}>
+      {children}
+    </AppText>
   );
 }
 

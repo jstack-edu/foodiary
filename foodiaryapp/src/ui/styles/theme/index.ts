@@ -15,6 +15,7 @@ const colors = {
     green: '#10b981',
     orange: '#f4a462',
     red: '#ef4444',
+    'red/10': 'rgba(239, 68, 68, .1)',
     teal: '#2a9d90',
     tomato: '#e76e50',
     yellow: '#e8c468',

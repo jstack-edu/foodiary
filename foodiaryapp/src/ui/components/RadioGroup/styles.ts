@@ -23,6 +23,10 @@ export const styles = StyleSheet.create({
     borderColor: theme.colors.lime[700],
     backgroundColor: theme.colors.lime['700/10'],
   },
+  errorItem: {
+    borderColor: theme.colors.support.red,
+    backgroundColor: theme.colors.support['red/10'],
+  },
   horizontalItem: {
     flexDirection: 'column',
     paddingVertical: 32,
@@ -36,7 +40,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  selectedIcon: {
+  whiteIconBg: {
     backgroundColor: theme.colors['white/40'],
   },
   label: {
