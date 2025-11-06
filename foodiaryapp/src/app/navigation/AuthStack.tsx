@@ -30,7 +30,10 @@ export function AuthStack() {
     <Stack.Navigator
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name="Greetings" component={Greetings} />
+      <Stack.Screen
+        name="Greetings"
+        component={Greetings}
+      />
       <Stack.Screen name="Onboarding" component={Onboarding} />
     </Stack.Navigator>
   );

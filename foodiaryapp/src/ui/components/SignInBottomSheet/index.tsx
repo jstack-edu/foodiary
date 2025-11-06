@@ -26,6 +26,7 @@ export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
     bottomSheetModalRef,
     passwordInputRef,
     form,
+    isLoading,
     handleSubmit,
    } = useSignInBottomSheetController(ref);
 
@@ -89,6 +90,7 @@ export function SignInBottomSheet({ ref }: ISignInBottomSheetProps) {
             <Button
               onPress={handleSubmit}
               isLoading={form.formState.isSubmitting}
+              disabled={isLoading}
             >
               Entrar
             </Button>
