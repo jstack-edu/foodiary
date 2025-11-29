@@ -25,14 +25,42 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const queryClient = useQueryClient();
   const forceRender = useForceRender();
 
+  const signOut = useCallback(async () => {
+    Service.removeAccessToken();
+    Service.removeRefreshTokenHandler();
+
+    queryClient.clear();
+    forceRender();
+
+    await AsyncStorage.clear();
+  }, [queryClient]);
+
   const setupAuth = useCallback(async (tokens: ISetupAuthParams) => {
     Service.setAccessToken(tokens.accessToken);
+    Service.setRefreshTokenHandler(async () => {
+      try {
+        const storedTokens = await AuthTokensManager.load();
+        if (!storedTokens) {
+          throw new Error('Tokens not found');
+        }
+
+        const newTokens = await AuthService.refresh({
+          refreshToken: storedTokens.refreshToken,
+        });
+
+        Service.setAccessToken(newTokens.accessToken);
+        await AuthTokensManager.save(newTokens);
+      } catch (error) {
+        signOut();
+        throw error;
+      }
+    });
 
     await loadAccount();
 
     SplashScreen.hideAsync();
     setIsReady(true);
-  }, []);
+  }, [signOut]);
 
   useLayoutEffect(() => {
     async function load() {
@@ -61,15 +89,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await AuthTokensManager.save(tokens);
     await setupAuth(tokens);
   }, []);
-
-  const signOut = useCallback(async () => {
-    Service.removeAccessToken();
-
-    queryClient.clear();
-    forceRender();
-
-    await AsyncStorage.clear();
-  }, [queryClient]);
 
   if (!isReady) {
     return null;
