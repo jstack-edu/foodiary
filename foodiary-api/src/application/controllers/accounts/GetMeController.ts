@@ -35,6 +35,7 @@ export namespace GetMeController {
       gender: Profile.Gender;
       height: number;
       weight: number;
+      goal: Profile.Goal;
     };
     goal: {
       calories: number;
