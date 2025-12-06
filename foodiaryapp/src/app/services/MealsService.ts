@@ -12,8 +12,6 @@ export class MealsService extends Service {
       },
     );
 
-    await new Promise(resolve => setTimeout(resolve, 3000));
-
     return {
       meals: data.meals.map(meal => ({
         ...meal,
