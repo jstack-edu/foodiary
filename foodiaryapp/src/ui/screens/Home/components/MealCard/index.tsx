@@ -1,4 +1,6 @@
-import { Meal } from '@app/types/Meal';
+import { AppStackNavigationProps } from '@app/navigation/AppStack';
+import { SimplifiedMeal } from '@app/types/Meal';
+import { useNavigation } from '@react-navigation/native';
 import { AppText } from '@ui/components/AppText';
 import { theme } from '@ui/styles/theme';
 import React, { useMemo } from 'react';
@@ -7,11 +9,12 @@ import { useHomeContext } from '../../context/useHomeContext';
 import { styles } from './styles';
 
 interface IMealCardProps {
-  meal: Meal;
+  meal: SimplifiedMeal;
 }
 
 export function MealCard({ meal }: IMealCardProps) {
   const { isLoading } = useHomeContext();
+  const { navigate } = useNavigation<AppStackNavigationProps>();
 
   const formattedFoods = useMemo(() => (
     meal.foods.map(food => food.name).join(', ')
@@ -37,6 +40,7 @@ export function MealCard({ meal }: IMealCardProps) {
 
       <View style={styles.wrapper}>
         <Pressable
+          onPress={() => navigate('MealDetails', { mealId: meal.id })}
           disabled={isLoading}
           android_ripple={{ color: 'rgba(0, 0, 0, 0.1)', foreground: true }}
           style={({ pressed }) => [

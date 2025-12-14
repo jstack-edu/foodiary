@@ -13,9 +13,10 @@ import { useAudioModalController } from './useAudioModalController';
 interface IAudioModalProps {
   visible: boolean;
   onClose: () => void;
+  onCreate?: () => void;
 }
 
-export function AudioModal({ visible, onClose }: IAudioModalProps) {
+export function AudioModal({ visible, onClose, onCreate }: IAudioModalProps) {
   const {
     state,
     isLoading,
@@ -24,7 +25,7 @@ export function AudioModal({ visible, onClose }: IAudioModalProps) {
     handleStopRecording,
     handleTryAgain,
     handleConfirm,
-  } = useAudioModalController();
+  } = useAudioModalController({ onClose, onCreate });
 
   const isRecording = state === 'recording';
 

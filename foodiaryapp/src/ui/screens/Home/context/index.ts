@@ -1,9 +1,9 @@
-import { Meal } from '@app/types/Meal';
+import { SimplifiedMeal } from '@app/types/Meal';
 import { createContext } from 'react';
 
 export interface IHomeContextValue {
   date: Date;
-  meals: Meal[];
+  meals: SimplifiedMeal[];
   isLoading: boolean;
   previousDay: () => void;
   nextDay: () => void;
