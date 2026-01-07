@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback, useLayoutEffect, useState } from 'react';
 
@@ -33,7 +32,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     queryClient.clear();
     forceRender();
 
-    await AsyncStorage.clear();
+    await AuthTokensManager.clear();
   }, [queryClient]);
 
   const setupAuth = useCallback(async (tokens: ISetupAuthParams) => {
